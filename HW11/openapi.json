@@ -1,0 +1,404 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Сервис роботов-пылесосов",
+    "version": "0.1"
+  },
+  "paths": {
+    "/robots": {
+      "get": {
+        "summary": "Метод получения списка всех устройств",
+        "tags": [
+          "Robots"
+        ],
+        "operationId": "getAllDevices",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ со списком привязанных устройств",
+            "content": {
+              "adplication/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Robots"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Все остальное",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Метод подключения нового устройства",
+        "tags": [
+          "Robots"
+        ],
+        "operationId": "addDevice",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ на подключение робота",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Robot"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Все остальное",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Обновление устройств",
+        "tags": [
+          "Robots"
+        ],
+        "operationId": "updateDevices",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Robot"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Устройствa успешно обновлены!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Robot"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Ошибка",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/robots/{robot_id}": {
+      "get": {
+        "summary": "Метод получения привязанного устройства по ID",
+        "tags": [
+          "Robots"
+        ],
+        "operationId": "getRobot",
+        "parameters": [
+          {
+            "name": "robot_id",
+            "in": "path",
+            "required": true,
+            "description": "Уникальный id устройства",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 148633746
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ с параметрами устройства",
+            "content": {
+              "adplication/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Robot"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Все остальное",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Метод удаления робота по номеру",
+        "tags": [
+          "Robots"
+        ],
+        "operationId": "removeRobotByNumber",
+        "parameters": [
+          {
+            "name": "robot_id",
+            "in": "path",
+            "required": true,
+            "description": "Уникальный id робота",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 729565597895
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ на удаление устройства",
+            "content": {
+              "adplication/json": {}
+            }
+          },
+          "default": {
+            "description": "Все остальное",
+            "content": {
+              "adplication/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Метод получения списка пользователей",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "getAllUsers",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ со списком пользователей",
+            "content": {
+              "adplication/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Все остальное",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Метод регистрации/авторизации пользователя",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "createAuthUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ на авторизацию/регистрацию пользователя",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Все остальное",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "delete": {
+        "summary": "Метод удаления пользователя по id",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "deleteUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Уникальный id пользователя",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 785524
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ на удаление пользователя",
+            "content": {
+              "adplication/json": {}
+            }
+          },
+          "default": {
+            "description": "Все остальное",
+            "content": {
+              "adplication/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Robot": {
+        "type": "object",
+        "required": [
+          "robot_id",
+          "model",
+          "serial_number",
+          "firmware_version",
+          "status",
+          "charge_level"
+        ],
+        "properties": {
+          "robot_id": {
+            "type": "integer",
+            "example": 12
+          },
+          "model": {
+            "type": "string",
+            "example": "Mark1"
+          },
+          "serial_number": {
+            "type": "string",
+            "example": "12A0B134KF"
+          },
+          "firware_version": {
+            "type": "string",
+            "example": 1.32
+          },
+          "status": {
+            "type": "string",
+            "example": "Производится уборка"
+          },
+          "charge_level": {
+            "type": "integer",
+            "example": 66
+          }
+        }
+      },
+      "Robots": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Robot"
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "id",
+          "hash",
+          "question"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 124556
+          },
+          "hash": {
+            "type": "integer",
+            "example": 8.965658985658755e+21
+          },
+          "question": {
+            "type": "string",
+            "description": "Контрольный вопрос пользователя"
+          }
+        }
+      },
+      "Users": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/User"
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string",
+            "example": "Error"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "SwaggerHub API Auto Mocking",
+      "url": "https://virtserver.swaggerhub.com/makr0n/Rbot/0.1"
+    }
+  ]
+}
